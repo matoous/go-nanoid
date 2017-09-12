@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gonanoid"
 	"fmt"
+	"go-nanoid"
 )
 
 func main(){

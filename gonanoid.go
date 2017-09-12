@@ -2,60 +2,63 @@ package gonanoid
 
 import (
 	"crypto/rand"
-	"log"
+	"math"
 )
 
 const (
 	defaultAlphabet = "_~0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" // URL friendly alphabet
-	defaultSize = 22 // default size of Nanoid
-	defaultBits = 6 // default bits needed to index default alphabet
-	defaultMask = 1 << defaultBits - 1 // default mask for given alphabet
+	defaultSize     = 22                                                                 // default size of Nanoid
+	defaultBits     = 6                                                                  // default bits needed to index default alphabet
+	defaultMask     = 1<<defaultBits - 1                                                 // default mask for given alphabet
 )
 
 var (
-	alphabet = defaultAlphabet // alphabet
-	size = defaultSize // id size
-	bits = defaultBits // bits needed to represent index in alphabet
-	mask byte = defaultMask // mask
-	bufferSize = int(float64(size)*1.3)
-	randomBytes = make([]byte, bufferSize)
+	alphabet      = defaultAlphabet // alphabet
+	size          = defaultSize     // id size
+	mask     byte = defaultMask     // mask
+	step          = int(math.Ceil(1.6 * float64(mask) * 22.0 / 64.0))
+	buffer        = make([]byte, step)
 )
 
-// Set gonanoid alphabet
-func Alphabet(newAlphabet string){
+// Set nanoid alphabet
+func Alphabet(newAlphabet string) {
 	alphabet = newAlphabet
-	bits = computeBits(len(alphabet))
-	mask = 1 << uint(bits) - 1
+	mask = 1<<computeBits(len(alphabet)) - 1
+	step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
+	buffer = make([]byte, step)
 }
 
-// Set generated ids size
-func Size(newSize int){
+// Set nanoid size
+func Size(newSize int) {
 	size = newSize
-	bufferSize = int(float64(size)*1.3)
-	randomBytes = make([]byte, bufferSize)
+	step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
+	buffer = make([]byte, step)
 }
 
 // Compute bits needed to represent index in array of given size
-func computeBits(size int) (bits int){
+func computeBits(size int) (bits uint) {
 	for size--; size != 0; size >>= 1 {
 		bits++;
 	}
 	return
 }
 
+// Generate nanoid
 func Generate() string {
 	result := make([]byte, size)
-	for i, j := 0, 0; i < size; j++ {
-		if j % bufferSize == 0 {
-			_, err := rand.Read(randomBytes)
-			if err != nil {
-				log.Fatal("Unable to generate random bytes")
-			}		}
-		if idx := int(randomBytes[j % size] & mask); idx < len(alphabet) {
-			result[i] = alphabet[idx]
-			i++
+	for u := 0; ; {
+		if _, err := rand.Read(buffer); err != nil {
+			panic(err)
+		}
+		for i := 0; i < step; i++ {
+			b := buffer[i] & mask
+			if b < byte(len(alphabet)) {
+				result[u] = alphabet[b]
+				u++
+				if u == size {
+					return string(result)
+				}
+			}
 		}
 	}
-
-	return string(result)
 }
