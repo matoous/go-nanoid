@@ -12,8 +12,8 @@ func TestGenerate(t *testing.T) {
 	COUNT := 100 * 1000
 	SIZE := 5
 
-	SetAlphabet(ALPHABET)
-	SetSize(SIZE)
+	Alphabet(ALPHABET)
+	Size(SIZE)
 	for i := 0; i < COUNT; i++ {
 		id := Generate()
 		for u := 0; u < len(id); u++ {
@@ -33,7 +33,7 @@ func TestGenerate(t *testing.T) {
 func TestSetSize(t *testing.T) {
 	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
 	for i := range sizes{
-		SetSize(i)
+		Size(i)
 		id := Generate()
 		if len(id) != i {
 			t.Errorf("Nanoid generated with false size: %d, except: %d", len(id), i)
@@ -43,15 +43,15 @@ func TestSetSize(t *testing.T) {
 
 // Test if the set alphabet function works
 func TestSetAlphabet(t *testing.T) {
-	SetAlphabet("abcd")
+	Alphabet("abcd")
 	if bits != 2 {
 		t.Errorf("Set alphabet 'abcd', expect: %d bits, have %d", 2, bits)
 	}
-	SetAlphabet("abcde")
+	Alphabet("abcde")
 	if bits != 3 {
 		t.Errorf("Set alphabet 'abcde', expect: %d bits, have %d", 3, bits)
 	}
-	SetAlphabet(defaultAlphabet)
+	Alphabet(defaultAlphabet)
 	if bits != 6 {
 		t.Errorf("Set alphabet '%s', expect: %d bits, have %d", defaultAlphabet, 6, bits)
 	}
@@ -61,4 +61,10 @@ func TestSetAlphabet(t *testing.T) {
 // Helping function to find if number is in given range
 func isInRange(num float64, from float64, to float64) bool {
 	return num > from && num < to
+}
+
+func BenchmarkGenerate(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Generate()
+	}
 }

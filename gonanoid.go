@@ -20,14 +20,14 @@ var (
 )
 
 // Set gonanoid alphabet
-func SetAlphabet(newAlphabet string){
+func Alphabet(newAlphabet string){
 	alphabet = newAlphabet
 	bits = computeBits(len(alphabet))
 	mask = 1 << bits - 1
 }
 
 // Set generated ids size
-func SetSize(newSize int){
+func Size(newSize int){
 	size = newSize
 }
 
