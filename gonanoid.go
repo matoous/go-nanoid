@@ -8,9 +8,9 @@ import (
 const (
 	defaultAlphabet = "_~0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" // URL friendly alphabet
 	defaultSize = 22 // default size of Nanoid
-	defaultBits = 6
-	defaultMask = 1 << defaultBits - 1
-	defaultMax = 63/defaultBits
+	defaultBits = 6 // default bits needed to index default alphabet
+	defaultMask = 1 << defaultBits - 1 // default mask for given alphabet
+	defaultMax = 63/defaultBits // default number of values available from 63 random bits
 )
 
 var (
