@@ -24,11 +24,11 @@ id := gonanoid.Generate()
 ```
 Change ID length
 ``` go
-gonanoid.SetSize(32)
+gonanoid.Size(32)
 ```
 Change ID alphabet
 ``` go
-gonanoid.SetAlphabt("abcde12345")
+gonanoid.Alphabet("abcde12345")
 ```
 
 ## Testing
