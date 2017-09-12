@@ -15,24 +15,28 @@ const (
 var (
 	alphabet = defaultAlphabet // alphabet
 	size = defaultSize // id size
-	bits uint64 = defaultBits // bits needed to represent index in alphabet
+	bits = defaultBits // bits needed to represent index in alphabet
 	mask byte = defaultMask // mask
+	bufferSize = int(float64(size)*1.3)
+	randomBytes = make([]byte, bufferSize)
 )
 
 // Set gonanoid alphabet
 func Alphabet(newAlphabet string){
 	alphabet = newAlphabet
 	bits = computeBits(len(alphabet))
-	mask = 1 << bits - 1
+	mask = 1 << uint(bits) - 1
 }
 
 // Set generated ids size
 func Size(newSize int){
 	size = newSize
+	bufferSize = int(float64(size)*1.3)
+	randomBytes = make([]byte, bufferSize)
 }
 
 // Compute bits needed to represent index in array of given size
-func computeBits(size int) (bits uint64){
+func computeBits(size int) (bits int){
 	for size--; size != 0; size >>= 1 {
 		bits++;
 	}
@@ -41,11 +45,12 @@ func computeBits(size int) (bits uint64){
 
 func Generate() string {
 	result := make([]byte, size)
-	bufferSize := int(float64(size)*1.3)
-	for i, j, randomBytes := 0, 0, []byte{}; i < size; j++ {
+	for i, j := 0, 0; i < size; j++ {
 		if j % bufferSize == 0 {
-			randomBytes = secureRandomBytes(bufferSize)
-		}
+			_, err := rand.Read(randomBytes)
+			if err != nil {
+				log.Fatal("Unable to generate random bytes")
+			}		}
 		if idx := int(randomBytes[j % size] & mask); idx < len(alphabet) {
 			result[i] = alphabet[idx]
 			i++
@@ -53,14 +58,4 @@ func Generate() string {
 	}
 
 	return string(result)
-}
-
-// SecureRandomBytes returns the requested number of bytes using crypto/rand
-func secureRandomBytes(length int) []byte {
-	var randomBytes = make([]byte, length)
-	_, err := rand.Read(randomBytes)
-	if err != nil {
-		log.Fatal("Unable to generate random bytes")
-	}
-	return randomBytes
 }
