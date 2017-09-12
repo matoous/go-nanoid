@@ -34,6 +34,7 @@ If you have any issues, just feel free and open it in this repository, thx!
 ## Credits
 
 - [ai](https://github.com/ai) - [nanoid](https://github.com/ai/nanoid)
+- icza - his tutorial on [random strings in Go](https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-golang)
 
 ## License
 
