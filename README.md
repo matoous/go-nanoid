@@ -42,6 +42,8 @@ $ go test -c -i -o /tmp/TestGenerate_in_gonanoid_test_gogo gonanoid
 
 ## Notice
 
+If you use Go Nanoid in your project, please let me know!
+
 If you have any issues, just feel free and open it in this repository, thanks!
 
 ## Credits
