@@ -12,13 +12,18 @@ $ go get github.com/matoous/go-nanoid
 
 ## Usage
 
+Generate ID
+
 ``` go
-# construct client
 id := gonanoid.Generate()
-# change alphabet
+```
+Change ID length
+``` go
+gonanoid.SetSize(32)
+```
+Change ID alphabet
+``` go
 gonanoid.SetAlphabt("abcde12345")
-# change id size
-gonanoid.SetSize(16)
 ```
 
 ## Testing
@@ -29,7 +34,7 @@ $ go test -c -i -o /tmp/TestGenerate_in_gonanoid_test_gogo gonanoid
 
 ## Notice
 
-If you have any issues, just feel free and open it in this repository, thx!
+If you have any issues, just feel free and open it in this repository, thanks!
 
 ## Credits
 
