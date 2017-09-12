@@ -1,8 +1,8 @@
 package gonanoid
 
 import (
-	"time"
-	"math/rand"
+	"crypto/rand"
+	"log"
 )
 
 const (
@@ -14,11 +14,10 @@ const (
 )
 
 var (
-	src = rand.NewSource(time.Now().UnixNano()) // Source of randomness
 	alphabet = defaultAlphabet // alphabet
 	size = defaultSize // id size
 	bits uint64 = defaultBits // bits needed to represent index in alphabet
-	mask int64 = defaultMask // mask
+	mask byte = defaultMask // mask
 	max uint64 = defaultMax // available values from 63 random bits
 )
 
@@ -35,24 +34,6 @@ func SetSize(newSize int){
 	size = newSize
 }
 
-// Generates new ID 22 characters by default
-func Generate() string {
-	b := make([]byte, size)
-	for i, cache, remain := size-1, src.Int63(), max; i >= 0; {
-		if remain == 0 {
-			cache, remain = src.Int63(), max
-		}
-		if idx := int(cache & mask); idx < len(alphabet) {
-			b[i] = alphabet[idx]
-			i--
-		}
-		cache >>= bits
-		remain--
-	}
-
-	return string(b)
-}
-
 // compute bits needed to represent index in array of given size
 func computeBits(size int) uint64{
 	size--
@@ -61,4 +42,30 @@ func computeBits(size int) uint64{
 		bits++;
 	}
 	return bits
+}
+
+func Generate() string {
+	result := make([]byte, size)
+	bufferSize := int(float64(size)*1.3)
+	for i, j, randomBytes := 0, 0, []byte{}; i < size; j++ {
+		if j%bufferSize == 0 {
+			randomBytes = secureRandomBytes(bufferSize)
+		}
+		if idx := int(randomBytes[j%size] & mask); idx < len(alphabet) {
+			result[i] = alphabet[idx]
+			i++
+		}
+	}
+
+	return string(result)
+}
+
+// SecureRandomBytes returns the requested number of bytes using crypto/rand
+func secureRandomBytes(length int) []byte {
+	var randomBytes = make([]byte, length)
+	_, err := rand.Read(randomBytes)
+	if err != nil {
+		log.Fatal("Unable to generate random bytes")
+	}
+	return randomBytes
 }
