@@ -1,4 +1,4 @@
-# Go-Nanoid
+# Go Nanoid
 
 This package is Go copy of [ai's](https://github.com/ai) [nanoid](https://github.com/ai/nanoid)!
 
