@@ -4,9 +4,6 @@ This package is Go copy of [ai's](https://github.com/ai) [nanoid](https://github
 
 **Safe.** It uses cryptographically strong random generator.
 
-**Small.** Only 179 bytes (minified and gzipped). No dependencies.
-It uses [Size Limit] to control size.
-
 **Compact.** It uses more symbols than UUID (`A-Za-z0-9_~`)
 and has the same number of unique options in just 22 symbols instead of 36.
 
@@ -27,11 +24,11 @@ id := gonanoid.Generate()
 ```
 Change ID length
 ``` go
-gonanoid.SetSize(32)
+gonanoid.Size(32)
 ```
 Change ID alphabet
 ``` go
-gonanoid.SetAlphabt("abcde12345")
+gonanoid.Alphabet("abcde12345")
 ```
 
 ## Testing
