@@ -13,16 +13,16 @@ const (
 	defaultMax = 63/defaultBits
 )
 
-// Source of randomness
 var (
-	src = rand.NewSource(time.Now().UnixNano())
-	alphabet = defaultAlphabet
-	size = defaultSize
-	bits uint64 = defaultBits
-	mask int64 = defaultMask
-	max uint64 = defaultMax
+	src = rand.NewSource(time.Now().UnixNano()) // Source of randomness
+	alphabet = defaultAlphabet // alphabet
+	size = defaultSize // id size
+	bits uint64 = defaultBits // bits needed to represent index in alphabet
+	mask int64 = defaultMask // mask
+	max uint64 = defaultMax // available values from 63 random bits
 )
 
+// Set gonanoid alphabet
 func SetAlphabet(newAlphabet string){
 	alphabet = newAlphabet
 	bits = computeBits(len(alphabet))
@@ -30,6 +30,7 @@ func SetAlphabet(newAlphabet string){
 	max = 63/bits
 }
 
+// Set generated ids size
 func SetSize(newSize int){
 	size = newSize
 }
@@ -52,6 +53,7 @@ func Generate() string {
 	return string(b)
 }
 
+// compute bits needed to represent index in array of given size
 func computeBits(size int) uint64{
 	size--
 	var bits uint64 = 0
