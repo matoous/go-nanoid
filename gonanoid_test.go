@@ -4,8 +4,8 @@ import (
 	"testing"
 )
 
-var sizes = []int{4, 10, 20, 22, 30, 40, 60}
-
+// Test the distribution so we are sure, that the collisions won't happen frequently
+// Test inspired by AI's javscript nanoid implementation
 func TestGenerate(t *testing.T) {
 	COUNTER := make(map[byte]int)
 	ALPHABET := "abcdefghijklmnopqrstuvwxyz"
@@ -29,7 +29,9 @@ func TestGenerate(t *testing.T) {
 	}
 }
 
+// Test if setting the size of ID works
 func TestSetSize(t *testing.T) {
+	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
 	for i := range sizes{
 		SetSize(i)
 		id := Generate()
@@ -39,6 +41,7 @@ func TestSetSize(t *testing.T) {
 	}
 }
 
+// Test if the set alphabet function works
 func TestSetAlphabet(t *testing.T) {
 	SetAlphabet("abcd")
 	if bits != 2 {
@@ -54,6 +57,8 @@ func TestSetAlphabet(t *testing.T) {
 	}
 }
 
+
+// Helping function to find if number is in given range
 func isInRange(num float64, from float64, to float64) bool {
 	return num > from && num < to
 }
