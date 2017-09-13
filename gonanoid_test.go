@@ -83,3 +83,13 @@ func BenchmarkGenerate(b *testing.B) {
 		Generate()
 	}
 }
+
+// Benchmark generate if alphabet length is not power of 2
+func BenchmarkGenerateCustom(b *testing.B) {
+	b.StopTimer()
+	Alphabet("abcdefghijklmnopqrstuvw")
+	b.StartTimer()
+	for n := 0; n < b.N; n++ {
+		Generate()
+	}
+}
