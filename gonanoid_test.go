@@ -32,11 +32,30 @@ func TestGenerate(t *testing.T) {
 // Test if setting the size of ID works
 func TestSetSize(t *testing.T) {
 	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
-	for i := range sizes{
-		Size(i)
+	for i := 0; i < len(sizes); i++ {
+		Size(sizes[i])
 		id := Generate()
-		if len(id) != i {
-			t.Errorf("Nanoid generated with false size: %d, except: %d", len(id), i)
+		if len(id) != sizes[i] {
+			t.Errorf("Nanoid generated with false size: %d, except: %d", len(id), sizes[i])
+		}
+	}
+}
+
+func TestAlphabet(t *testing.T) {
+	var alphabets = []string{"abc", "abcdefg", "abcABC123", "abcdefghABCDEFGH123456_"}
+	for _, a := range alphabets {
+		CONTAINS := make(map[byte]bool)
+
+		Alphabet(a)
+		id := Generate()
+		for u := 0; u < len(id); u++ {
+			CONTAINS[id[u]] = true
+		}
+
+		for key, val := range CONTAINS {
+			if val && !byteInString(key, a) {
+				t.Errorf("Set alphabet to %v but ID containes latter %v", a, key)
+			}
 		}
 	}
 }
@@ -45,6 +64,17 @@ func TestSetSize(t *testing.T) {
 func isInRange(num float64, from float64, to float64) bool {
 	return num > from && num < to
 }
+
+
+func byteInString(b byte, alphabet string) bool{
+	for u := 0; u < len(alphabet); u++ {
+		if b == alphabet[u]{
+			return true
+		}
+	}
+	return false
+}
+
 
 func BenchmarkGenerate(b *testing.B) {
 	for n := 0; n < b.N; n++ {
