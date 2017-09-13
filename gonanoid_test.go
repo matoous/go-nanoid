@@ -29,7 +29,7 @@ func TestGenerate(t *testing.T) {
 	}
 }
 
-// Test if setting the size of ID works
+// Test if setting the size of nanoid works
 func TestSetSize(t *testing.T) {
 	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
 	for i := 0; i < len(sizes); i++ {
@@ -41,6 +41,7 @@ func TestSetSize(t *testing.T) {
 	}
 }
 
+// test if setting the alphabet for nanoid works
 func TestAlphabet(t *testing.T) {
 	var alphabets = []string{"abc", "abcdefg", "abcABC123", "abcdefghABCDEFGH123456_"}
 	for _, a := range alphabets {
@@ -65,7 +66,7 @@ func isInRange(num float64, from float64, to float64) bool {
 	return num > from && num < to
 }
 
-
+// Helping function to find if byte is in given string
 func byteInString(b byte, alphabet string) bool{
 	for u := 0; u < len(alphabet); u++ {
 		if b == alphabet[u]{
@@ -76,6 +77,7 @@ func byteInString(b byte, alphabet string) bool{
 }
 
 
+// Benchmark nanoid generator
 func BenchmarkGenerate(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		Generate()

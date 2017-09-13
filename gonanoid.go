@@ -20,7 +20,7 @@ var (
 	buffer        = make([]byte, step)
 )
 
-// Set nanoid alphabet
+// Alphabets sets nanoid alphabet to given string
 func Alphabet(newAlphabet string) {
 	alphabet = newAlphabet
 	mask = 1<<computeBits(len(alphabet)) - 1
@@ -28,7 +28,7 @@ func Alphabet(newAlphabet string) {
 	buffer = make([]byte, step)
 }
 
-// Set nanoid size
+// Size sets size of generated nanoids
 func Size(newSize int) {
 	size = newSize
 	step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
