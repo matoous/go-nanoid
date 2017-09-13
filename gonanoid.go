@@ -20,7 +20,7 @@ var (
 	buffer        = make([]byte, step)
 )
 
-// Alphabets sets nanoid alphabet to given string
+// Alphabet sets nanoid alphabet to given string
 func Alphabet(newAlphabet string) {
 	alphabet = newAlphabet
 	mask = 1<<computeBits(len(alphabet)) - 1
