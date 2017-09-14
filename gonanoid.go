@@ -28,15 +28,10 @@ func Alphabet(newAlphabet string) error {
 	if length < 1 || length > 256 {
 		return errors.New("alphabet length must be between 1 and 256")
 	}
+	// set values
 	alphabet = newAlphabet
 	mask = 1<<computeBits(length) - 1
-	// check simple algo availability
-	if isPowerOfTwo(length) {
-		simple = true
-	} else {
-		simple = false
-		step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(length)))
-	}
+	recompute()
 	return nil
 }
 
@@ -46,9 +41,7 @@ func Size(newSize int) error {
 		return errors.New("size must be greater than 0")
 	}
 	size = newSize
-	if !simple {
-		step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
-	}
+	recompute()
 	return nil
 }
 
@@ -108,4 +101,18 @@ func computeBits(size int) (bits uint) {
 		bits++;
 	}
 	return
+}
+
+func recompute(){
+	// check simple algo availability
+	if isPowerOfTwo(len(alphabet)) {
+		simple = true
+	} else {
+		simple = false
+		step = computeStep(mask, size, len(alphabet))
+	}
+}
+
+func computeStep(mask byte, size, length int) int {
+	return int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(length)))
 }
