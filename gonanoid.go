@@ -46,7 +46,9 @@ func Size(newSize int) error {
 		return errors.New("size must be greater than 0")
 	}
 	size = newSize
-	step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
+	if !simple {
+		step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
+	}
 	return nil
 }
 
