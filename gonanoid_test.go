@@ -1,8 +1,8 @@
 package gonanoid
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 // Test the distribution so we are sure, that the collisions won't happen frequently
@@ -27,7 +27,7 @@ func TestGenerate(t *testing.T) {
 
 	for char, count := range COUNTER {
 		distribution := (float64(count) * float64(len(ALPHABET))) / float64((COUNT * SIZE))
-		if !isInRange(distribution, 0.95, 1.05){
+		if !isInRange(distribution, 0.95, 1.05) {
 			t.Errorf("distribution error, char %v has %v distribution", char, distribution)
 		}
 	}
@@ -54,11 +54,11 @@ func TestSetSize(t *testing.T) {
 func TestAlphabet(t *testing.T) {
 	assert.NotEqual(t, Alphabet(""), nil, "Function shall return error but returns nil")
 	// test 300 characters
-	assert.NotEqual(t, Alphabet("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+	assert.NotEqual(t, Alphabet("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
 		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), nil, "Function shall return error but returns nil")
 
 	var alphabets = []string{"abc", "abcdefg", "abcABC123", "abcdefghABCDEFGH123456_"}
@@ -88,15 +88,14 @@ func isInRange(num float64, from float64, to float64) bool {
 }
 
 // Helping function to find if byte is in given string
-func byteInString(b byte, alphabet string) bool{
+func byteInString(b byte, alphabet string) bool {
 	for u := 0; u < len(alphabet); u++ {
-		if b == alphabet[u]{
+		if b == alphabet[u] {
 			return true
 		}
 	}
 	return false
 }
-
 
 // Benchmark nanoid generator
 func BenchmarkGenerate(b *testing.B) {

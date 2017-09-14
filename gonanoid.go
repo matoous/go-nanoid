@@ -2,8 +2,8 @@ package gonanoid
 
 import (
 	"crypto/rand"
-	"math"
 	"github.com/go-errors/errors"
+	"math"
 )
 
 const (
@@ -74,7 +74,6 @@ func Generate() (string, error) {
 	}
 }
 
-
 // helpers
 
 // find out if number n is power of 2
@@ -94,13 +93,13 @@ func isPowerOfTwo(n int) bool {
 // compute bits needed to represent index in alphabet of given size
 func computeBits(size int) (bits uint) {
 	for size--; size != 0; size >>= 1 {
-		bits++;
+		bits++
 	}
 	return
 }
 
 // recompute random bytes array length if needed
-func recompute(){
+func recompute() {
 	// check simple algo availability
 	if isPowerOfTwo(len(alphabet)) {
 		simple = true

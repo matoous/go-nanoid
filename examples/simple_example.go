@@ -5,7 +5,7 @@ import (
 	"github.com/matoous/go-nanoid"
 )
 
-func main(){
+func main() {
 	id, err := gonanoid.Generate()
 	if err != nil {
 		panic(err)
