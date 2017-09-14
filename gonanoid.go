@@ -3,6 +3,7 @@ package gonanoid
 import (
 	"crypto/rand"
 	"math"
+	"github.com/go-errors/errors"
 )
 
 const (
@@ -22,21 +23,31 @@ var (
 // if alphabet length is power of two,
 // simpler and faster algorithm will be used,
 // because we don't need to skip any masked bytes
-func Alphabet(newAlphabet string) {
+func Alphabet(newAlphabet string) error {
+	length := len(newAlphabet)
+	if length < 1 || length > 256 {
+		return errors.New("alphabet length must be between 1 and 256")
+	}
 	alphabet = newAlphabet
-	mask = 1<<computeBits(len(alphabet)) - 1
+	mask = 1<<computeBits(length) - 1
 	// check simple algo availability
-	if isPowerOfTwo(len(alphabet)) {
+	if isPowerOfTwo(length) {
 		simple = true
 	} else {
 		simple = false
-		step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
+		step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(length)))
 	}
+	return nil
 }
 
 // Size sets size of generated nanoid
-func Size(newSize int) {
+func Size(newSize int) error {
+	if newSize < 1 {
+		return errors.New("size must be greater than 0")
+	}
 	size = newSize
+	step = int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(len(alphabet))))
+	return nil
 }
 
 // Generate nanoid
