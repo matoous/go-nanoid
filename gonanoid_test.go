@@ -16,7 +16,10 @@ func TestGenerate(t *testing.T) {
 	Alphabet(ALPHABET)
 	Size(SIZE)
 	for i := 0; i < COUNT; i++ {
-		id := Generate()
+		id, err := Generate()
+		if err != nil {
+			t.Errorf("Generate error: %s", err.Error())
+		}
 		for u := 0; u < len(id); u++ {
 			COUNTER[id[u]]++
 		}
@@ -37,7 +40,10 @@ func TestSetSize(t *testing.T) {
 	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
 	for i := 0; i < len(sizes); i++ {
 		Size(sizes[i])
-		id := Generate()
+		id, err := Generate()
+		if err != nil {
+			t.Errorf("Generate error: %s", err.Error())
+		}
 		if len(id) != sizes[i] {
 			t.Errorf("Nanoid generated with false size: %d, except: %d", len(id), sizes[i])
 		}
@@ -60,7 +66,10 @@ func TestAlphabet(t *testing.T) {
 		CONTAINS := make(map[byte]bool)
 
 		Alphabet(a)
-		id := Generate()
+		id, err := Generate()
+		if err != nil {
+			t.Errorf("Generate error: %s", err.Error())
+		}
 		for u := 0; u < len(id); u++ {
 			CONTAINS[id[u]] = true
 		}
