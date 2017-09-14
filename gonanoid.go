@@ -20,9 +20,6 @@ var (
 )
 
 // Alphabet - sets nanoid alphabet to given string
-// if alphabet length is power of two,
-// simpler and faster algorithm will be used,
-// because we don't need to skip any masked bytes
 func Alphabet(newAlphabet string) error {
 	length := len(newAlphabet)
 	if length < 1 || length > 256 {
