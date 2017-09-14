@@ -2,6 +2,7 @@ package gonanoid
 
 import (
 	"testing"
+	"github.com/stretchr/testify/assert"
 )
 
 // Test the distribution so we are sure, that the collisions won't happen frequently
@@ -31,6 +32,8 @@ func TestGenerate(t *testing.T) {
 
 // Test if setting the size of nanoid works
 func TestSetSize(t *testing.T) {
+	assert.NotEqual(t, Size(0), nil, "Function shall return error but returns nil")
+
 	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
 	for i := 0; i < len(sizes); i++ {
 		Size(sizes[i])
@@ -43,6 +46,15 @@ func TestSetSize(t *testing.T) {
 
 // test if setting the alphabet for nanoid works
 func TestAlphabet(t *testing.T) {
+	assert.NotEqual(t, Alphabet(""), nil, "Function shall return error but returns nil")
+	// test 300 characters
+	assert.NotEqual(t, Alphabet("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), nil, "Function shall return error but returns nil")
+
 	var alphabets = []string{"abc", "abcdefg", "abcABC123", "abcdefghABCDEFGH123456_"}
 	for _, a := range alphabets {
 		CONTAINS := make(map[byte]bool)
