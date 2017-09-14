@@ -76,7 +76,7 @@ func TestAlphabet(t *testing.T) {
 
 		for key, val := range CONTAINS {
 			if val && !byteInString(key, a) {
-				t.Errorf("Set alphabet to %v but ID containes latter %v", a, key)
+				t.Errorf("Set alphabet to %v but ID contains latter %v", a, key)
 			}
 		}
 	}

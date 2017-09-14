@@ -55,20 +55,19 @@ func Generate() (string, error) {
 			result[i] = alphabet[buff[i]&mask]
 		}
 		return string(result), nil
-	} else {
-		buff := make([]byte, step)
-		for u := 0; ; {
-			if _, err := rand.Read(buff); err != nil {
-				return "", err
-			}
-			for i := 0; i < step; i++ {
-				b := buff[i] & mask
-				if b < byte(len(alphabet)) {
-					result[u] = alphabet[b]
-					u++
-					if u == size {
-						return string(result), nil
-					}
+	}
+	buff := make([]byte, step)
+	for u := 0; ; {
+		if _, err := rand.Read(buff); err != nil {
+			return "", err
+		}
+		for i := 0; i < step; i++ {
+			b := buff[i] & mask
+			if b < byte(len(alphabet)) {
+				result[u] = alphabet[b]
+				u++
+				if u == size {
+					return string(result), nil
 				}
 			}
 		}
