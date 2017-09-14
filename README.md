@@ -3,12 +3,14 @@
 [![Build Status](https://travis-ci.org/matoous/go-nanoid.svg?branch=master)](https://travis-ci.org/matoous/go-nanoid) [![GoDoc](https://godoc.org/github.com/matoous/go-nanoid?status.svg)](https://godoc.org/github.com/matoous/go-nanoid) [![Go Report Card](https://goreportcard.com/badge/github.com/matoous/go-nanoid)](https://goreportcard.com/report/github.com/matoous/go-nanoid)
 
 
-This package is Go copy of [ai's](https://github.com/ai) [nanoid](https://github.com/ai/nanoid)!
+This package is Go implementation of [ai's](https://github.com/ai) [nanoid](https://github.com/ai/nanoid)!
 
 **Safe.** It uses cryptographically strong random generator.
 
 **Compact.** It uses more symbols than UUID (`A-Za-z0-9_~`)
 and has the same number of unique options in just 22 symbols instead of 36.
+
+**Fast.** Nanoid is as fast as UUID but can be used in URLs.
 
 ## Install
 
@@ -23,15 +25,15 @@ $ go get github.com/matoous/go-nanoid
 Generate ID
 
 ``` go
-id := gonanoid.Generate()
+id, err := gonanoid.Generate()
 ```
 Change ID length
 ``` go
-gonanoid.Size(32)
+err := gonanoid.Size(32)
 ```
 Change ID alphabet
 ``` go
-gonanoid.Alphabet("abcde12345")
+err := gonanoid.Alphabet("abcde12345")
 ```
 
 ## Testing
