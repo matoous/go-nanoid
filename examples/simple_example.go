@@ -6,6 +6,9 @@ import (
 )
 
 func main(){
-	id := gonanoid.Generate()
+	id, err := gonanoid.Generate()
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("Generated default id: %s\n", id)
 }

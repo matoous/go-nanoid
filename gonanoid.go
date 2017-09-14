@@ -19,7 +19,7 @@ var (
 	step     int
 )
 
-// Alphabet sets nanoid alphabet to given string
+// Alphabet - sets nanoid alphabet to given string
 // if alphabet length is power of two,
 // simpler and faster algorithm will be used,
 // because we don't need to skip any masked bytes
@@ -35,7 +35,7 @@ func Alphabet(newAlphabet string) error {
 	return nil
 }
 
-// Size sets size of generated nanoid
+// Size - sets size of generated nanoid
 func Size(newSize int) error {
 	if newSize < 1 {
 		return errors.New("size must be greater than 0")
@@ -45,24 +45,24 @@ func Size(newSize int) error {
 	return nil
 }
 
-// Generate nanoid
-func Generate() string {
+// Generate - generates nanoid
+func Generate() (string, error) {
 	result := make([]byte, size)
 	// speed up when it is possible
 	if simple {
 		buff := make([]byte, size)
 		if _, err := rand.Read(buff); err != nil {
-			panic(err)
+			return "", err
 		}
 		for i := 0; i < size; i++ {
 			result[i] = alphabet[buff[i]&mask]
 		}
-		return string(result)
+		return string(result), nil
 	} else {
 		buff := make([]byte, step)
 		for u := 0; ; {
 			if _, err := rand.Read(buff); err != nil {
-				panic(err)
+				return "", err
 			}
 			for i := 0; i < step; i++ {
 				b := buff[i] & mask
@@ -70,7 +70,7 @@ func Generate() string {
 					result[u] = alphabet[b]
 					u++
 					if u == size {
-						return string(result)
+						return string(result), nil
 					}
 				}
 			}
@@ -103,6 +103,7 @@ func computeBits(size int) (bits uint) {
 	return
 }
 
+// recompute random bytes array length if needed
 func recompute(){
 	// check simple algo availability
 	if isPowerOfTwo(len(alphabet)) {
@@ -113,6 +114,7 @@ func recompute(){
 	}
 }
 
+// compute step
 func computeStep(mask byte, size, length int) int {
 	return int(math.Ceil(1.6 * float64(mask) * float64(size) / float64(length)))
 }
