@@ -1,6 +1,6 @@
 # Go Nanoid
 
-[![Build Status](https://travis-ci.org/matoous/go-nanoid.svg?branch=master)](https://travis-ci.org/matoous/go-nanoid) [![GoDoc](https://godoc.org/github.com/matoous/go-nanoid?status.svg)](https://godoc.org/github.com/matoous/go-nanoid) [![Go Report Card](https://goreportcard.com/badge/github.com/matoous/go-nanoid)](https://goreportcard.com/report/github.com/matoous/go-nanoid)
+[![Build Status](https://travis-ci.org/matoous/go-nanoid.svg?branch=master)](https://travis-ci.org/matoous/go-nanoid) [![GoDoc](https://godoc.org/github.com/matoous/go-nanoid?status.svg)](https://godoc.org/github.com/matoous/go-nanoid) [![Go Report Card](https://goreportcard.com/badge/github.com/matoous/go-nanoid)](https://goreportcard.com/report/github.com/matoous/go-nanoid) [![GitHub issues](https://img.shields.io/github/issues/matoous/go-nanoid.svg)](https://github.com/matoous/go-nanoid/issues) [![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)](https://github.com/matoous/go-nanoid/LICENSE)
 
 
 This package is Go implementation of [ai's](https://github.com/ai) [nanoid](https://github.com/ai/nanoid)!
