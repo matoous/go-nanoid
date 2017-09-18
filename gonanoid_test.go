@@ -1,8 +1,8 @@
 package gonanoid
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+	"github.com/stretchr/testify/assert"
 )
 
 // Test the distribution so we are sure, that the collisions won't happen frequently

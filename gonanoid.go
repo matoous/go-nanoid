@@ -2,8 +2,8 @@ package gonanoid
 
 import (
 	"crypto/rand"
-	"github.com/go-errors/errors"
 	"math"
+	"errors"
 )
 
 const (
