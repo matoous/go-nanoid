@@ -1,4 +1,4 @@
-package nanoid
+package gonanoid
 
 import (
 	"crypto/rand"
