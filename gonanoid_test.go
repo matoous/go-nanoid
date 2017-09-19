@@ -1,115 +1,103 @@
 package gonanoid
 
 import (
+	"math"
+	"strings"
 	"testing"
-	"github.com/stretchr/testify/assert"
 )
 
-// Test the distribution so we are sure, that the collisions won't happen frequently
-// Test inspired by AI's javscript nanoid implementation
-func TestGenerate(t *testing.T) {
-	COUNTER := make(map[byte]int)
-	ALPHABET := "abcdefghijklmnopqrstuvwxyz"
-	COUNT := 100 * 1000
-	SIZE := 5
+var urlLength = len(defaults.Alphabet)
 
-	Alphabet(ALPHABET)
-	Size(SIZE)
-	for i := 0; i < COUNT; i++ {
-		id, err := Generate()
+// Test that nanoid generates URL friendly IDs
+// it ('generates URL-friendly IDs')
+func TestGeneratesURLFriendlyIDs(t *testing.T) {
+	for i := 0; i < 10; i++ {
+		id, err := Nanoid()
 		if err != nil {
-			t.Errorf("Generate error: %s", err.Error())
+			t.Errorf("Nanoid error: %v", err)
 		}
-		for u := 0; u < len(id); u++ {
-			COUNTER[id[u]]++
-		}
-	}
-
-	for char, count := range COUNTER {
-		distribution := (float64(count) * float64(len(ALPHABET))) / float64((COUNT * SIZE))
-		if !isInRange(distribution, 0.95, 1.05) {
-			t.Errorf("distribution error, char %v has %v distribution", char, distribution)
-		}
-	}
-}
-
-// Test if setting the size of nanoid works
-func TestSetSize(t *testing.T) {
-	assert.NotEqual(t, Size(0), nil, "Function shall return error but returns nil")
-
-	var sizes = []int{4, 10, 20, 22, 30, 40, 60}
-	for i := 0; i < len(sizes); i++ {
-		Size(sizes[i])
-		id, err := Generate()
-		if err != nil {
-			t.Errorf("Generate error: %s", err.Error())
-		}
-		if len(id) != sizes[i] {
-			t.Errorf("Nanoid generated with false size: %d, except: %d", len(id), sizes[i])
-		}
-	}
-}
-
-// test if setting the alphabet for nanoid works
-func TestAlphabet(t *testing.T) {
-	assert.NotEqual(t, Alphabet(""), nil, "Function shall return error but returns nil")
-	// test 300 characters
-	assert.NotEqual(t, Alphabet("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), nil, "Function shall return error but returns nil")
-
-	var alphabets = []string{"abc", "abcdefg", "abcABC123", "abcdefghABCDEFGH123456_"}
-	for _, a := range alphabets {
-		CONTAINS := make(map[byte]bool)
-
-		Alphabet(a)
-		id, err := Generate()
-		if err != nil {
-			t.Errorf("Generate error: %s", err.Error())
-		}
-		for u := 0; u < len(id); u++ {
-			CONTAINS[id[u]] = true
+		if len(id) != defaults.Size {
+			t.Errorf(
+				"TestGeneratesURLFriendlyIDs error: length of id %v should be %v, got %v",
+				id,
+				defaults.Size,
+				id,
+			)
 		}
 
-		for key, val := range CONTAINS {
-			if val && !byteInString(key, a) {
-				t.Errorf("Set alphabet to %v but ID contains latter %v", a, key)
+		runeID := []rune(id)
+
+		for j := 0; j < len(runeID); j++ {
+			res := strings.Contains(defaults.Alphabet, string(runeID[j]))
+			if !res {
+				t.Errorf(
+					"GeneratesURLFriendlyIds error: char %v should be contained in %v",
+					string(runeID[j]),
+					defaults.Alphabet,
+				)
 			}
 		}
 	}
 }
 
-// Helping function to find if number is in given range
-func isInRange(num float64, from float64, to float64) bool {
-	return num > from && num < to
+// Test that nanoid has no collisions
+// it ('has no collisions')
+func TestHasNoCollisions(t *testing.T) {
+	COUNT := 100 * 1000
+	used := make(map[string]bool)
+	for i := 0; i < COUNT; i++ {
+		id, err := Nanoid()
+		if err != nil {
+			t.Errorf("Nanoid error: %v", err)
+		}
+		if used[id] {
+			t.Errorf("Collision error! Id %v found for test arr %v", id, used)
+		}
+		used[id] = true
+	}
 }
 
-// Helping function to find if byte is in given string
-func byteInString(b byte, alphabet string) bool {
-	for u := 0; u < len(alphabet); u++ {
-		if b == alphabet[u] {
-			return true
+// Test that Nanoid has flat distribution
+// it ('has flat distribution')
+func TestFlatDistribution(t *testing.T) {
+	COUNT := 100 * 1000
+	instance, err := Nanoid()
+	if err != nil {
+		t.Errorf("Nanoid error: %v", err)
+	}
+	LENGTH := len(instance)
+
+	chars := make(map[byte]int)
+
+	for i := 0; i < COUNT; i++ {
+		id, _ := Nanoid()
+		for j := 0; j < LENGTH; j++ {
+			// https://github.com/ai/nanoid/blob/d6ad3412147fa4c2b0d404841ade245a00c2009f/test/index.test.js#L33
+			// if (!chars[char]) chars[char] = 0 is useless since it
+			// is initialized by default to 0 from Golang
+			chars[id[j]]++
 		}
 	}
-	return false
+
+	for char, k := range chars {
+		distribution := float64(k) * float64(urlLength) / float64(COUNT*LENGTH)
+		if !toBeCloseTo(distribution, 1, 1) {
+			t.Errorf("Distribution error! Distribution %v found for char %v", distribution, char)
+		}
+	}
+}
+
+// utility that replicates jest.toBeCloseTo
+func toBeCloseTo(value, actual, expected float64) bool {
+	precision := 2
+	// https://github.com/facebook/jest/blob/a397abaf9f08e691f8739899819fc4da41c1e476/packages/expect/src/matchers.js#L83
+	pass := math.Abs(expected-actual) < math.Pow10(-precision)/2
+	return pass
 }
 
 // Benchmark nanoid generator
-func BenchmarkGenerate(b *testing.B) {
+func BenchmarkNanoid(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Generate()
-	}
-}
-
-// Benchmark generate if alphabet length is not power of 2
-func BenchmarkGenerateCustom(b *testing.B) {
-	b.StopTimer()
-	Alphabet("abcdefghijklmnopqrstuvw")
-	b.StartTimer()
-	for n := 0; n < b.N; n++ {
-		Generate()
+		Nanoid()
 	}
 }
