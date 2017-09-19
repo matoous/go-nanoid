@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	id, err := gonanoid.Generate()
+	id, err := gonanoid.Nanoid()
 	if err != nil {
 		panic(err)
 	}
