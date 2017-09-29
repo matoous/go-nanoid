@@ -25,15 +25,7 @@ $ go get github.com/matoous/go-nanoid
 Generate ID
 
 ``` go
-id, err := gonanoid.Generate()
-```
-Change ID length
-``` go
-err := gonanoid.Size(32)
-```
-Change ID alphabet
-``` go
-err := gonanoid.Alphabet("abcde12345")
+id, err := gonanoid.Nananoid()
 ```
 
 ## Testing
