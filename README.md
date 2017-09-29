@@ -25,7 +25,7 @@ $ go get github.com/matoous/go-nanoid
 Generate ID
 
 ``` go
-id, err := gonanoid.Nananoid()
+id, err := gonanoid.Nanoid()
 ```
 
 ## Testing
