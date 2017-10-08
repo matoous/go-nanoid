@@ -31,12 +31,6 @@ func initMasks(params ...int) []uint {
 	} else {
 		size = params[0]
 	}
-	/*
-		https://github.com/ai/nanoid/blob/d6ad3412147fa4c2b0d404841ade245a00c2009f/format.js#L1
-		As per 'var masks = [15, 31, 63, 127, 255]'
-
-		The next block initializes an array of size elements, from 2^4-1 to 2^(3 + size)-1
-	*/
 	masks := make([]uint, size)
 	for i := 0; i < size; i++ {
 		shift := 3 + i
@@ -45,12 +39,6 @@ func initMasks(params ...int) []uint {
 	return masks
 }
 
-/*
-https://github.com/ai/nanoid/blob/d6ad3412147fa4c2b0d404841ade245a00c2009f/format.js#L29-L31
-var mask = masks.find(function (i) {
-	return i >= alphabet.length - 1
-})
-*/
 func getMask(alphabet string, masks []uint) int {
 	for i := 0; i < len(masks); i++ {
 		curr := int(masks[i])
