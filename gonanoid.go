@@ -77,7 +77,6 @@ func Generate(alphabet string, size int) (string, error) {
 				id[j] = alphabet[currByte]
 				j++
 				if j == size {
-					fmt.Println("id", id)
 					return string(id[:size]), nil
 				}
 			}
