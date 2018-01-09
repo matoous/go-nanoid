@@ -2,7 +2,6 @@ package gonanoid
 
 import (
 	"crypto/rand"
-	"fmt"
 	"math"
 )
 
