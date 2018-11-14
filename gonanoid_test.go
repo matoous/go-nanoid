@@ -101,3 +101,19 @@ func BenchmarkNanoid(b *testing.B) {
 		Nanoid()
 	}
 }
+
+func TestChangeGenerator(t *testing.T) {
+	BytesGenerator = func(s []byte) (int, error) {
+		for i := range s {
+			s[i] = 0
+		}
+		return len(s), nil
+	}
+	id, err := Nanoid(6)
+	if err != nil {
+		t.Errorf("generating nanoid with custom generator failed: %v", err)
+	}
+	if id != "______" { // _ is the first char, the length should be 6
+		t.Errorf("generating nanoid with custom generator failed, expected ______ ('_' length 6) got: \"%v\"", id)
+	}
+}
