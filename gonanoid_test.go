@@ -98,7 +98,7 @@ func toBeCloseTo(value, actual, expected float64) bool {
 // Benchmark nanoid generator
 func BenchmarkNanoid(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Nanoid()
+		_, _ = Nanoid()
 	}
 }
 
