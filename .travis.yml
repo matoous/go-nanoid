@@ -1,8 +1,6 @@
 language: go
 
 go:
-  - 2.11
-  - 2.12
-  - release
+  - master
 
 script: go test -v -bench=.
