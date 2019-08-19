@@ -7,7 +7,7 @@ import (
 
 const (
 	defaultAlphabet = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" // len=64
-	defaultSize     = 22
+	defaultSize     = 21
 	defaultMaskSize = 5
 )
 
