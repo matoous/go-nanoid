@@ -2,6 +2,7 @@ package gonanoid
 
 import (
 	"crypto/rand"
+	"fmt"
 	"math"
 )
 
@@ -44,6 +45,13 @@ func getMask(alphabet string, masks []uint) int {
 
 // Generate is a low-level function to change alphabet and ID size.
 func Generate(alphabet string, size int) (string, error) {
+	if len(alphabet) == 0 || len(alphabet) > 255 {
+		return "", fmt.Errorf("alphabet must not empty and contain no more than 255 chars. Current len is %d", len(alphabet))
+	}
+	if size <= 0 {
+		return "", fmt.Errorf("size must be positive integer")
+	}
+
 	masks := initMasks(size)
 	mask := getMask(alphabet, masks)
 	ceilArg := 1.6 * float64(mask*size) / float64(len(alphabet))
