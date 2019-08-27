@@ -117,3 +117,26 @@ func TestChangeGenerator(t *testing.T) {
 		t.Errorf("generating nanoid with custom generator failed, expected ______ ('_' length 6) got: \"%v\"", id)
 	}
 }
+
+func TestUnacceptableAlphabetSize(t *testing.T) {
+	alphabets := []string{
+		"",                       // too short
+		strings.Repeat("a", 256), // too long
+	}
+
+	for _, alphabet := range alphabets {
+		_, err := Generate(alphabet, 32)
+		if err == nil {
+			t.Errorf("alphabet of size %d should not be allowed", len(alphabet))
+		}
+	}
+}
+
+func TestNonPositiveSize(t *testing.T) {
+	for _, size := range []int{-1, 0} {
+		_, err := Generate("alphabet", size)
+		if err == nil {
+			t.Errorf("non posisitive size (%d) should not be allowed", size)
+		}
+	}
+}
