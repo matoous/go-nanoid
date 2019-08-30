@@ -1,0 +1,34 @@
+name: Tests
+on: [push]
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.12
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.12.3
+        id: go
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Test
+        run: make test
+
+  benchmark:
+    name: Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.12
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.12.3
+        id: go
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Benchmark
+        run: make bench
