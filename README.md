@@ -1,6 +1,7 @@
 # Go Nanoid
 
-[![Build Status](https://github.com/matoous/go-nanoid/workflows/test/badge.svg)](https://github.com/matoous/go-nanoid/workflows/test) 
+[![Build Status](https://github.com/matoous/go-nanoid/workflows/Tests/badge.svg)](https://github.com/matoous/go-nanoid/actions) 
+[![Build Status](https://github.com/matoous/go-nanoid/workflows/Lint/badge.svg)](https://github.com/matoous/go-nanoid/actions) 
 [![GoDoc](https://godoc.org/github.com/matoous/go-nanoid?status.svg)](https://godoc.org/github.com/matoous/go-nanoid)
 [![Go Report Card](https://goreportcard.com/badge/github.com/matoous/go-nanoid)](https://goreportcard.com/report/github.com/matoous/go-nanoid)
 [![GitHub issues](https://img.shields.io/github/issues/matoous/go-nanoid.svg)](https://github.com/matoous/go-nanoid/issues)
