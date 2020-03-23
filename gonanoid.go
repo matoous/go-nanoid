@@ -2,6 +2,7 @@ package gonanoid
 
 import (
 	"crypto/rand"
+	"errors"
 	"fmt"
 	"math"
 )
@@ -80,10 +81,16 @@ func Generate(alphabet string, size int) (string, error) {
 // Nanoid generates secure URL-friendly unique ID.
 func Nanoid(param ...int) (string, error) {
 	var size int
-	if len(param) == 0 {
+	switch {
+	case len(param) == 0:
 		size = defaultSize
-	} else {
+	case len(param) == 1:
 		size = param[0]
+		if size < 0 {
+			return "", errors.New("negative id length")
+		}
+	default:
+		return "", errors.New("unexpected parameter")
 	}
 	bytes := make([]byte, size)
 	_, err := BytesGenerator(bytes)
