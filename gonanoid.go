@@ -103,3 +103,9 @@ func Nanoid(param ...int) (string, error) {
 	}
 	return string(id[:size]), nil
 }
+
+// ID provides more golang idiomatic interface for generating IDs.
+// Calling ID is shorter yet still clear `gonanoid.ID(20)` and it requires the lengths parameter by default.
+func ID(l int) (string, error) {
+	return Nanoid(l)
+}

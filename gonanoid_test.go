@@ -140,3 +140,33 @@ func TestNonPositiveSize(t *testing.T) {
 		}
 	}
 }
+
+func TestID(t *testing.T) {
+	tests := map[string]struct {
+		l       int
+		wantErr bool
+	}{
+		"happy path": {
+			l: 10,
+		},
+		"negative length": {
+			l:       -1,
+			wantErr: true,
+		},
+	}
+	for name, tt := range tests {
+		tt := tt
+		t.Run(name, func(t *testing.T) {
+			got, err := ID(tt.l)
+			if tt.wantErr {
+				if err == nil {
+					t.Errorf("ID() should return error")
+				}
+			} else {
+				if len(got) != tt.l {
+					t.Errorf("returned ID should be of requested length")
+				}
+			}
+		})
+	}
+}
