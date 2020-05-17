@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"unicode/utf8"
 )
 
 const (
@@ -34,10 +35,10 @@ func initMasks(params ...int) []uint {
 	return masks
 }
 
-func getMask(alphabet string, masks []uint) int {
+func getMask(alphabetLen int, masks []uint) int {
 	for i := 0; i < len(masks); i++ {
 		curr := int(masks[i])
-		if curr >= len(alphabet)-1 {
+		if curr >= alphabetLen-1 {
 			return curr
 		}
 	}
@@ -45,20 +46,23 @@ func getMask(alphabet string, masks []uint) int {
 }
 
 // Generate is a low-level function to change alphabet and ID size.
-func Generate(alphabet string, size int) (string, error) {
-	if len(alphabet) == 0 || len(alphabet) > 255 {
-		return "", fmt.Errorf("alphabet must not empty and contain no more than 255 chars. Current len is %d", len(alphabet))
+func Generate(rawAlphabet string, size int) (string, error) {
+	alphabetLen := utf8.RuneCount([]byte(rawAlphabet))
+	alphabet := []rune(rawAlphabet)
+
+	if alphabetLen == 0 || alphabetLen > 255 {
+		return "", fmt.Errorf("alphabet must not empty and contain no more than 255 chars. Current len is %d", alphabetLen)
 	}
 	if size <= 0 {
 		return "", fmt.Errorf("size must be positive integer")
 	}
 
 	masks := initMasks(size)
-	mask := getMask(alphabet, masks)
-	ceilArg := 1.6 * float64(mask*size) / float64(len(alphabet))
+	mask := getMask(alphabetLen, masks)
+	ceilArg := 1.6 * float64(mask*size) / float64(alphabetLen)
 	step := int(math.Ceil(ceilArg))
 
-	id := make([]byte, size)
+	id := make([]rune, size)
 	bytes := make([]byte, step)
 	for j := 0; ; {
 		_, err := BytesGenerator(bytes)
@@ -67,7 +71,7 @@ func Generate(alphabet string, size int) (string, error) {
 		}
 		for i := 0; i < step; i++ {
 			currByte := bytes[i] & byte(mask)
-			if currByte < byte(len(alphabet)) {
+			if currByte < byte(alphabetLen) {
 				id[j] = alphabet[currByte]
 				j++
 				if j == size {
