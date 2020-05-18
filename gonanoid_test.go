@@ -28,7 +28,7 @@ func TestGeneratesURLFriendlyIDs(t *testing.T) {
 		runeID := []rune(id)
 
 		for j := 0; j < len(runeID); j++ {
-			res := strings.Contains(defaultAlphabet, string(runeID[j]))
+			res := strings.Contains(string(defaultAlphabet), string(runeID[j]))
 			if !res {
 				t.Errorf(
 					"GeneratesURLFriendlyIds error: char %v should be contained in %v",
