@@ -22,7 +22,7 @@ and has the same number of unique options in just 22 symbols instead of 36.
 Via go get tool
 
 ``` bash
-$ go get github.com/matoous/go-nanoid
+$ go get github.com/matoous/go-nanoid/v2
 ```
 
 ## Usage
@@ -30,19 +30,13 @@ $ go get github.com/matoous/go-nanoid
 Generate ID
 
 ``` go
-id, err := gonanoid.Nanoid()
+id, err := gonanoid.New()
 ```
 
-Generate ID with custom alphabet and length
+Generate ID with a custom alphabet and length
 
 ``` go
 id, err := gonanoid.Generate("abcde", 54)
-```
-
-## Testing
-
-``` bash
-$ go test
 ```
 
 ## Notice
