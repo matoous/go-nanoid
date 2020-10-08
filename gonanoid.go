@@ -111,3 +111,21 @@ func Nanoid(param ...int) (string, error) {
 func ID(l int) (string, error) {
 	return Nanoid(l)
 }
+
+// MustID is the same as ID but panics on error.
+func MustID(l int) string {
+	id, err := Nanoid(l)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
+// MustGenerate is the same as Generate but panics on error.
+func MustGenerate(rawAlphabet string, size int) string {
+	id, err := Generate(rawAlphabet, size)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
