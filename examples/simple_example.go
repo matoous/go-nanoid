@@ -8,14 +8,14 @@ import (
 
 func main() {
 	// Simple usage
-	id, err := gonanoid.Nanoid()
+	id, err := gonanoid.New()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Generated id: %s\n", id)
 
 	// Custom length
-	id, err = gonanoid.ID(5)
+	id, err = gonanoid.New(5)
 	if err != nil {
 		panic(err)
 	}
@@ -34,4 +34,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Generated id: %s\n", id)
+
+	fmt.Printf("Generated id: %s\n", gonanoid.Must())
+	fmt.Printf("Generated id: %s\n", gonanoid.MustGenerate("🚀💩🦄🤖", 4))
 }

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fa965eb0-6029-4e10-b107-14db3ce302e8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.goreleaser.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.15.2/libexec" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1ZWKPAWR2c9ab7nDiRlcCIfEgva" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GO_FMT" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TF_FMT" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.TestFlatDistribution in github.com/matoous/go-nanoid">
+    <configuration name="go build github.com/matoous/go-nanoid/examples" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="go-nanoid" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/examples/simple_example.go" />
+      <package value="github.com/matoous/go-nanoid/examples" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestFlatDistribution in github.com/matoous/go-nanoid" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-nanoid" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/matoous/go-nanoid" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestFlatDistribution$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGenerate in github.com/matoous/go-nanoid" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-nanoid" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/matoous/go-nanoid" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestGenerate$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestID in github.com/matoous/go-nanoid" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-nanoid" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/matoous/go-nanoid" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestID$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestNew in github.com/matoous/go-nanoid" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-nanoid" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/matoous/go-nanoid" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestNew$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestFlatDistribution in github.com/matoous/go-nanoid" />
+        <item itemvalue="Go Test.TestNew in github.com/matoous/go-nanoid" />
+        <item itemvalue="Go Build.go build github.com/matoous/go-nanoid/examples" />
+        <item itemvalue="Go Test.TestGenerate in github.com/matoous/go-nanoid" />
+        <item itemvalue="Go Test.TestID in github.com/matoous/go-nanoid" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: Add checks to Nanoid to validate parameters" />
+    <MESSAGE value="feat: Add ID function - a shorthand for Nanoid" />
+    <MESSAGE value="fix: Update golangci-lint action" />
+    <MESSAGE value="feat: Major refactor and renaming of functions&#10;&#10;This is major refactor of gonanoid for version 2.&#10;More tests were added and also some bugs fixed on&#10;the way, mainly related to non-ascii alphabets&#10;for IDs.&#10;&#10;BREAKING CHANGES: Nanoid() and ID() functions were removed,&#10;use New() instead. MustID() was removed, use Must() instead." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Major refactor and renaming of functions&#10;&#10;This is major refactor of gonanoid for version 2.&#10;More tests were added and also some bugs fixed on&#10;the way, mainly related to non-ascii alphabets&#10;for IDs.&#10;&#10;BREAKING CHANGES: Nanoid() and ID() functions were removed,&#10;use New() instead. MustID() was removed, use Must() instead." />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <environment>
+      <map>
+        <entry key="GOPROXY" value="direct" />
+      </map>
+    </environment>
+    <proxy>direct</proxy>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2200" y="473" key="#GOROOT" timestamp="1602186006688">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2200" y="473" key="#GOROOT/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602186006688" />
+    <state x="2007" y="90" key="CommitChangelistDialog2" timestamp="1602189510346">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2007" y="90" key="CommitChangelistDialog2/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602189510346" />
+    <state width="1878" height="300" key="GridCell.Tab.0.bottom" timestamp="1602189393763">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="300" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602189393763" />
+    <state width="1878" height="300" key="GridCell.Tab.0.center" timestamp="1602189393762">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="300" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602189393762" />
+    <state width="1878" height="300" key="GridCell.Tab.0.left" timestamp="1602189393761">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="300" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602189393761" />
+    <state width="1878" height="300" key="GridCell.Tab.0.right" timestamp="1602189393762">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="300" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602189393762" />
+    <state x="1909" y="179" key="SettingsEditor" timestamp="1602187826964">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1909" y="179" key="SettingsEditor/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602187826964" />
+    <state x="2131" y="162" key="VCS.ChangeListViewerDialog" timestamp="1602186548518">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2131" y="162" key="VCS.ChangeListViewerDialog/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602186548518" />
+    <state x="2065" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1602186701681">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2065" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1602186701681" />
+  </component>
+</project>
