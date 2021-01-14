@@ -4,5 +4,5 @@ module github.com/matoous/go-nanoid/v2
 
 require (
 	github.com/matoous/go-nanoid v1.5.0
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 )
