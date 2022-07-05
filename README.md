@@ -17,6 +17,8 @@ and has the same number of unique options in just 22 symbols instead of 36.
 
 **Fast.** Nanoid is as fast as UUID but can be used in URLs.
 
+There's also this alternative: https://github.com/jaevor/go-nanoid.
+
 ## Install
 
 Via go get tool
