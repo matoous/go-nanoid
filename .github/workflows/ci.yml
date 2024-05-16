@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  GOLANGCI_LINT_VERSION: v1.58
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ["1.20", "1.21", "1.22"]
+    steps:
+      - uses: actions/checkout@v4.1.5
+      - uses: actions/setup-go@v5.0.1
+        with:
+          go-version: ${{ matrix.version }}
+      - name: Test
+        run: make test
+
+  benchmark:
+    name: Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.5
+      - uses: actions/setup-go@v5.0.1
+      - uses: actions/setup-go@v2
+        with:
+          go-version-file: './go.mod'
+      - name: Benchmark
+        run: make bench
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.5
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6.0.1
+        with:
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
+      - name: tidy
+        run: |
+          make download
+          git diff-index HEAD
+          git diff --minimal --color=always --compact-summary --exit-code HEAD || FAILED=true ;
+          if [[ $FAILED ]];
+            then echo "❗️please run \"go mod tidy\" locally and commit the changes"
+            exit 1
+          fi
