@@ -19,7 +19,7 @@ jobs:
       matrix:
         version: ["1.20", "1.21", "1.22"]
     steps:
-      - uses: actions/checkout@v4.1.5
+      - uses: actions/checkout@v4.1.6
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.version }}
@@ -30,7 +30,7 @@ jobs:
     name: Benchmark
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.5
+      - uses: actions/checkout@v4.1.6
       - uses: actions/setup-go@v5
       - uses: actions/setup-go@v5
         with:
@@ -42,7 +42,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.5
+      - uses: actions/checkout@v4.1.6
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v6.0.1
         with:
