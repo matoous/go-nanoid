@@ -7,7 +7,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/matoous/go-nanoid.svg)](https://github.com/matoous/go-nanoid/issues)
 [![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)](https://github.com/matoous/go-nanoid/LICENSE)
 
-
 This package is Go implementation of [ai's](https://github.com/ai) [nanoid](https://github.com/ai/nanoid)!
 
 **Safe.** It uses cryptographically strong random generator.
