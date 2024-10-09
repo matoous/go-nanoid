@@ -10,12 +10,16 @@ This package is Go implementation of [ai's](https://github.com/ai) [nanoid](http
 
 **Safe.** It uses cryptographically strong random generator.
 
-**Compact.** It uses more symbols than UUID (`A-Za-z0-9_-`)
-and has the same number of unique options in just 22 symbols instead of 36.
+**Compact.** It uses more symbols than UUID (`A-Za-z0-9_-`) and has the same number of unique options in just 22 symbols instead of 36.
 
 **Fast.** Nanoid is as fast as UUID but can be used in URLs.
 
 There's also this alternative: https://github.com/jaevor/go-nanoid.
+
+> [!NOTE]  
+> There's little to no development on this repo, intentionally. It does what it needs to do. Bug reports are welcomed, features _might_ be implemented.
+>
+> If you are considering more heavy weight solution that integrates with UUIDs (supported by many databases) I would suggest you take a look at [typeid](https://github.com/sumup/typeid) or other equivalents.
 
 ## Install
 
@@ -52,4 +56,4 @@ If you have any issues, just feel free and open it in this repository, thanks!
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](./LICENSE) for more information.
