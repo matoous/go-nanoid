@@ -8,6 +8,7 @@ import (
 )
 
 var defaultAlphabet = []rune("_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
 const (
 	defaultSize     = 21
 	defaultMaskSize = 5
@@ -19,26 +20,13 @@ type Generator func([]byte) (int, error)
 // BytesGenerator is the default bytes generator
 var BytesGenerator Generator = rand.Read
 
-func initMasks(params ...int) []uint {
-	var size int
-	if len(params) == 0 {
-		size = defaultMaskSize
-	} else {
-		size = params[0]
-	}
-	masks := make([]uint, size)
-	for i := 0; i < size; i++ {
-		shift := 3 + i
-		masks[i] = (2 << uint(shift)) - 1
-	}
-	return masks
-}
-
-func getMask(alphabet []rune, masks []uint) int {
-	for i := 0; i < len(masks); i++ {
-		curr := int(masks[i])
-		if curr >= len(alphabet)-1 {
-			return curr
+// getMask generates bit mask used to obtain bits from the random bytes that are used to get index of random character
+// from the alphabet. Example: if the alphabet has 6 = (110)_2 characters it is sufficient to use mask 7 = (111)_2
+func getMask(alphabetSize int) int {
+	for i := 1; i <= 8; i++ {
+		mask := (2 << uint(i)) - 1
+		if mask >= alphabetSize-1 {
+			return mask
 		}
 	}
 	return 0
@@ -55,8 +43,7 @@ func Generate(rawAlphabet string, size int) (string, error) {
 		return "", fmt.Errorf("size must be positive integer")
 	}
 
-	masks := initMasks(size)
-	mask := getMask(alphabet, masks)
+	mask := getMask(len(alphabet))
 	ceilArg := 1.6 * float64(mask*size) / float64(len(alphabet))
 	step := int(math.Ceil(ceilArg))
 

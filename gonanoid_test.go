@@ -170,3 +170,8 @@ func TestID(t *testing.T) {
 		})
 	}
 }
+
+func TestSize1(t *testing.T) {
+	prefixAlphabet := "abcdefghijklmnopqrstuvwxyz"
+	_, _ = Generate(prefixAlphabet, 1)
+}
