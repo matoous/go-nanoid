@@ -14,8 +14,6 @@ This package is Go implementation of [ai's](https://github.com/ai) [nanoid](http
 
 **Fast.** Nanoid is as fast as UUID but can be used in URLs.
 
-There's also this alternative: https://github.com/jaevor/go-nanoid.
-
 > [!NOTE]  
 > There's little to no development on this repo, intentionally. It does what it needs to do. Bug reports are welcomed, features _might_ be implemented.
 >
