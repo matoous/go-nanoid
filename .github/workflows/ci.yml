@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  GOLANGCI_LINT_VERSION: v1.63
+  GOLANGCI_LINT_VERSION: v2.5.0
 
 jobs:
   test:
@@ -17,12 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ["1.21", "1.22", "1.23"]
+        version:
+          - "1.23" # stable-2
+          - "1.24" # stable-1
+          - "stable" # 1.25
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: actions/setup-go@v5
+      - name: Checkout code
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
         with:
           go-version: ${{ matrix.version }}
+
       - name: Test
         run: make test
 
@@ -30,11 +36,13 @@ jobs:
     name: Benchmark
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: actions/setup-go@v5
-      - uses: actions/setup-go@v5
+      - name: Checkout code
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
         with:
-          go-version-file: './go.mod'
+          go-version-file: 'go.mod'
+
       - name: Benchmark
         run: make bench
 
@@ -42,11 +50,14 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - name: Checkout code
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v6.3.2
+        uses: golangci/golangci-lint-action@e7fa5ac41e1cf5b7d48e45e42232ce7ada589601 # v9.1.0
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
+
       - name: tidy
         run: |
           make download
