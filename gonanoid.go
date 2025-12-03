@@ -6,8 +6,37 @@ import (
 	"math"
 )
 
-// defaultAlphabet is the alphabet used for ID characters by default.
-var defaultAlphabet = []rune("_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+var (
+	// defaultAlphabet is the alphabet used for ID characters by default.
+	defaultAlphabet = []rune("_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	// AlphaNum is an alphabet of alpha-numerical characters.
+	AlphaNum = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+	// Alpha is an alphabet of upper and lower case letters.
+	Alpha = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	// AlphaLowerNum is an alphabet of lower case letters and numbers.
+	AlphaLowerNum = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
+
+	// AlphaUpperNum is an alphabet of upper case letters and numbers.
+	AlphaUpperNum = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+	// AlphaLower is an alphabet of lower case letters.
+	AlphaLower = []rune("abcdefghijklmnopqrstuvwxyz")
+
+	// AlphaUpper is an alphabet of upper case letters.
+	AlphaUpper = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	// Numeric is an alphabet of numerical characters.
+	Numeric = []rune("0123456789")
+
+	// CrockfordBase32Upper is the [Crockford](https://www.crockford.com/base32.html) uppercase base32 alphabet.
+	CrockfordBase32Upper = []rune("0123456789ABCDEFGHJKMNPQRSTVWXYZ")
+
+	// CrockfordBase32Lower is the [Crockford](https://www.crockford.com/base32.html) lower base32 alphabet.
+	CrockfordBase32Lower = []rune("0123456789abcdefghjkmnpqrstvwxyz")
+)
 
 const (
 	defaultSize = 21
