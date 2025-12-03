@@ -8,34 +8,34 @@ import (
 
 var (
 	// defaultAlphabet is the alphabet used for ID characters by default.
-	defaultAlphabet = []rune("_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	defaultAlphabet = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 	// AlphaNum is an alphabet of alpha-numerical characters.
-	AlphaNum = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	AlphaNum = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 	// Alpha is an alphabet of upper and lower case letters.
-	Alpha = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	Alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 	// AlphaLowerNum is an alphabet of lower case letters and numbers.
-	AlphaLowerNum = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
+	AlphaLowerNum = "abcdefghijklmnopqrstuvwxyz0123456789"
 
 	// AlphaUpperNum is an alphabet of upper case letters and numbers.
-	AlphaUpperNum = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	AlphaUpperNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 	// AlphaLower is an alphabet of lower case letters.
-	AlphaLower = []rune("abcdefghijklmnopqrstuvwxyz")
+	AlphaLower = "abcdefghijklmnopqrstuvwxyz"
 
 	// AlphaUpper is an alphabet of upper case letters.
-	AlphaUpper = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	AlphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 	// Numeric is an alphabet of numerical characters.
-	Numeric = []rune("0123456789")
+	Numeric = "0123456789"
 
 	// CrockfordBase32Upper is the [Crockford](https://www.crockford.com/base32.html) uppercase base32 alphabet.
-	CrockfordBase32Upper = []rune("0123456789ABCDEFGHJKMNPQRSTVWXYZ")
+	CrockfordBase32Upper = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
 
 	// CrockfordBase32Lower is the [Crockford](https://www.crockford.com/base32.html) lower base32 alphabet.
-	CrockfordBase32Lower = []rune("0123456789abcdefghjkmnpqrstvwxyz")
+	CrockfordBase32Lower = "0123456789abcdefghjkmnpqrstvwxyz"
 )
 
 const (
@@ -122,7 +122,7 @@ func New(l ...int) (string, error) {
 	}
 	id := make([]rune, size)
 	for i := 0; i < size; i++ {
-		id[i] = defaultAlphabet[bytes[i]&63]
+		id[i] = []rune(defaultAlphabet)[bytes[i]&63]
 	}
 	return string(id[:size]), nil
 }
