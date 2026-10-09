@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"errors"
 	"math"
+	"math/bits"
 )
 
 var (
@@ -65,7 +66,43 @@ func Generate(alphabet string, size int) (string, error) {
 		return "", errors.New("size must be positive integer")
 	}
 
-	mask := getMask(len(chars))
+	charLen := len(chars)
+	if charLen > 1 && (charLen&(charLen-1)) == 0 {
+		bitsPerChar := bits.TrailingZeros(uint(charLen))
+		mask := charLen - 1
+		bytesNeeded := (size*bitsPerChar + 7) / 8
+		bytes := make([]byte, bytesNeeded)
+		if _, err := rand.Read(bytes); err != nil {
+			return "", err
+		}
+
+		id := make([]rune, size)
+		var (
+			buffer       uint64
+			bufferedBits uint
+			idx          int
+		)
+		for i := 0; i < size; i++ {
+			if bufferedBits < uint(bitsPerChar) {
+				buffer = (buffer << 8) | uint64(bytes[idx])
+				idx++
+				bufferedBits += 8
+			}
+			bufferedBits -= uint(bitsPerChar)
+			id[i] = chars[(buffer>>bufferedBits)&uint64(mask)]
+		}
+		return string(id), nil
+	}
+
+	if charLen == 1 {
+		id := make([]rune, size)
+		for i := range id {
+			id[i] = chars[0]
+		}
+		return string(id), nil
+	}
+
+	mask := getMask(charLen)
 	// estimate how many random bytes we will need for the ID, we might actually need more but this is tradeoff
 	// between average case and worst case
 	ceilArg := 1.6 * float64(mask*size) / float64(len(alphabet))
@@ -80,7 +117,7 @@ func Generate(alphabet string, size int) (string, error) {
 		}
 		for i := range step {
 			currByte := bytes[i] & byte(mask)
-			if currByte < byte(len(chars)) {
+			if currByte < byte(charLen) {
 				id[j] = chars[currByte]
 				j++
 				if j == size {
@@ -115,16 +152,32 @@ func New(l ...int) (string, error) {
 	default:
 		return "", errors.New("unexpected parameter")
 	}
-	bytes := make([]byte, size)
-	_, err := rand.Read(bytes)
-	if err != nil {
+	if size == 0 {
+		return "", nil
+	}
+
+	bytesNeeded := (size*6 + 7) / 8
+	bytes := make([]byte, bytesNeeded)
+	if _, err := rand.Read(bytes); err != nil {
 		return "", err
 	}
-	id := make([]rune, size)
+
+	id := make([]byte, size)
+	var (
+		buffer       uint64
+		bufferedBits uint
+		idx          int
+	)
 	for i := 0; i < size; i++ {
-		id[i] = []rune(defaultAlphabet)[bytes[i]&63]
+		if bufferedBits < 6 {
+			buffer = (buffer << 8) | uint64(bytes[idx])
+			idx++
+			bufferedBits += 8
+		}
+		bufferedBits -= 6
+		id[i] = defaultAlphabet[(buffer>>bufferedBits)&63]
 	}
-	return string(id[:size]), nil
+	return string(id), nil
 }
 
 // Must is the same as New but panics on error.
