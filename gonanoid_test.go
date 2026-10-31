@@ -67,3 +67,41 @@ func TestNew(t *testing.T) {
 		assert.Len(t, id, 6, "should return ID of requested length")
 	})
 }
+
+func TestGenerateAlphabetCharacterLimit(t *testing.T) {
+	for _, tc := range []struct {
+		name      string
+		start     rune
+		count     int
+		wantError bool
+	}{
+		{"empty", 'a', 0, true},
+		{"single Unicode character", '🚀', 1, false},
+		{"63 Unicode characters", '😀', 63, false},
+		{"64 Unicode characters", '😀', 64, false},
+		{"255 Unicode characters", '😀', 255, false},
+		{"256 Unicode characters", '😀', 256, true},
+		{"127 ASCII characters", 1, 127, false},
+		{"256 characters", 1, 256, true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			chars := make([]rune, tc.count)
+			for i := range chars {
+				chars[i] = tc.start + rune(i)
+			}
+			alphabet := string(chars)
+			id, err := gonanoid.Generate(alphabet, 32)
+			if tc.wantError {
+				assert.Error(t, err)
+				return
+			}
+			if !assert.NoError(t, err, "%d characters in %d bytes", len(chars), len(alphabet)) {
+				return
+			}
+			assert.Equal(t, 32, utf8.RuneCountInString(id))
+			for _, r := range id {
+				assert.True(t, strings.ContainsRune(alphabet, r))
+			}
+		})
+	}
+}

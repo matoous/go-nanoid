@@ -58,7 +58,7 @@ func getMask(alphabetSize int) int {
 func Generate(alphabet string, size int) (string, error) {
 	chars := []rune(alphabet)
 
-	if len(alphabet) == 0 || len(alphabet) > 255 {
+	if len(chars) == 0 || len(chars) > 255 {
 		return "", errors.New("alphabet must not be empty and contain no more than 255 chars")
 	}
 	if size <= 0 {
@@ -68,7 +68,7 @@ func Generate(alphabet string, size int) (string, error) {
 	mask := getMask(len(chars))
 	// estimate how many random bytes we will need for the ID, we might actually need more but this is tradeoff
 	// between average case and worst case
-	ceilArg := 1.6 * float64(mask*size) / float64(len(alphabet))
+	ceilArg := 1.6 * float64(mask*size) / float64(len(chars))
 	step := int(math.Ceil(ceilArg))
 
 	id := make([]rune, size)
